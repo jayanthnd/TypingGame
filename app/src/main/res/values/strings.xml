@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TypingGame</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="inputString">The quick brown fox jumps over the lazy dog</string>
+    <string name="submit">Submit</string>
+    <string name="quit">Quit</string>
+    <string name="inputText">Enter Text Here</string>
+
+    <string name="dialog_ready">Are You Ready?</string>
+    <string name="Yes">Yes</string>
+    <string name="ok">Ok</string>
+
+    <string name="correctString">Thats Right</string>
+    <string name="incorrectString">Incorrect, try again!</string>
+
+</resources>
