@@ -125,9 +125,9 @@ public class MyActivity extends Activity {
         setRefString();
 
         String input = inputTextBox.getText().toString();
-        String referencenew = refString.getText().toString();//"The quick brown fox jumps over the lazy dog";//
+        reference = refString.getText().toString();//"The quick brown fox jumps over the lazy dog";//
 
-        if(input.equals(referencenew)){
+        if(input.equals(reference)){
 
             endTime = System.currentTimeMillis();
             timeTaken = (endTime - startTime) / 1000;
