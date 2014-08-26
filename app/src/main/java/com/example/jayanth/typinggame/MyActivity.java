@@ -3,17 +3,22 @@ package com.example.jayanth.typinggame;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.util.Random;
+import android.util.Log;
 
 public class MyActivity extends Activity {
+
+    private static final String TAG = "MyActivity";
 
     EditText inputTextBox;
     TextView refString;
@@ -51,15 +56,25 @@ public class MyActivity extends Activity {
 
     int getRandomNumber(){
 
-        randomNumber =  randomGenerator.nextInt(5);
-        randomNumber -= 1;
+
+        randomNumber = randomGenerator.nextInt(5);
+        //randomNumber -= 1;
+        Log.v(TAG, "index= " + randomNumber);
+
+
         return randomNumber;
     }
 
     void setRefString(){
 
         randomNumber = getRandomNumber();
-        reference = randomStrings[randomNumber];
+        try {
+            reference = randomStrings[randomNumber];
+        } catch (ArrayIndexOutOfBoundsException e){
+
+            randomNumber = 0;
+            reference = randomStrings[randomNumber];
+        }
         refString.setText(reference);
 
     }
@@ -75,13 +90,15 @@ public class MyActivity extends Activity {
         refString = (TextView)findViewById(R.id.inputTextView);
         setTime = (TextView)findViewById(R.id.setTimeTextView);
 
+
         refString.setText("");
+
         populateStrings();
 
         topScore = 20;
         compareScore = 0;
 
-
+        setRefString();
 
         quitButton.setOnClickListener(new View.OnClickListener(){
 
@@ -122,7 +139,7 @@ public class MyActivity extends Activity {
 
     public void onSubmitButtonClick(View view){
 
-        setRefString();
+        //refString.setText(randomStrings[0]);
 
         String input = inputTextBox.getText().toString();
         reference = refString.getText().toString();//"The quick brown fox jumps over the lazy dog";//
@@ -131,7 +148,10 @@ public class MyActivity extends Activity {
 
             endTime = System.currentTimeMillis();
             timeTaken = (endTime - startTime) / 1000;
+
             removeDialog(CORRECT_DIALOG);
+
+            setRefString();
             showDialog(CORRECT_DIALOG);
             //Toast.makeText(this, "That's Right! You took " + timeTaken + " seconds", Toast.LENGTH_LONG).show();
 
@@ -140,6 +160,7 @@ public class MyActivity extends Activity {
             showDialog(INCORRECT_DIALOG);
             //Toast.makeText(this, "That's Not Right!!!!", Toast.LENGTH_LONG).show();
         }
+
 
     }
 
@@ -159,7 +180,7 @@ public class MyActivity extends Activity {
                 public void onClick(DialogInterface dialog, int which) {
                     startTime = System.currentTimeMillis();
                     inputTextBox.setText("");
-                    setRefString();
+                    //setRefString();
                     dialog.cancel();
 
                 }
@@ -190,7 +211,7 @@ public class MyActivity extends Activity {
 
                     startTime = System.currentTimeMillis();
                     inputTextBox.setText("");
-                    setRefString();
+                    //setRefString();
                     dialog.cancel();
 
                 }

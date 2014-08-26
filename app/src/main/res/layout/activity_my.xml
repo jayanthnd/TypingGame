@@ -32,7 +32,7 @@
         android:enabled="true"
         android:singleLine="false"
         android:minLines="1"
-        android:maxLines="3" />
+        android:maxLines="3"/>
 
     <Button
         android:layout_width="wrap_content"
