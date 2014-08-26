@@ -17,4 +17,6 @@
     <string name="correctString">Thats Right</string>
     <string name="incorrectString">Incorrect, try again!</string>
 
+    <string name="setTime">0.0</string>
+
 </resources>

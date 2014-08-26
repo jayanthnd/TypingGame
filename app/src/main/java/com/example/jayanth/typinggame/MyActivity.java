@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+import java.util.Random;
 
 public class MyActivity extends Activity {
 
@@ -19,6 +19,7 @@ public class MyActivity extends Activity {
     TextView refString;
     Button submitButton;
     Button quitButton;
+    TextView setTime;
 
     private static final int READY_DIALOG = 1;
 
@@ -27,9 +28,41 @@ public class MyActivity extends Activity {
     double timeTaken;
     double topScore;
     double compareScore;
+    String newTimeSet;
+    String reference;
+    int randomNumber;
 
+    private String [] randomStrings = new String[6];
     private static final int CORRECT_DIALOG = 2;
     private static final int INCORRECT_DIALOG = 3;
+
+    Random randomGenerator = new Random();
+
+    void populateStrings(){
+
+        randomStrings[0] = "The quick brown fox jumps over the lazy dog";
+        randomStrings[1] = "I have no option but to delete this text";
+        randomStrings[2] = "The weirdest cookie in the world crumbles too quick";
+        randomStrings[3] = "The shit is way too serious to get real, you know?";
+        randomStrings[4] = "On this date, in this place, the world will change forever";
+        randomStrings[5] = "Hi";
+
+    }
+
+    int getRandomNumber(){
+
+        randomNumber =  randomGenerator.nextInt(5);
+        randomNumber -= 1;
+        return randomNumber;
+    }
+
+    void setRefString(){
+
+        randomNumber = getRandomNumber();
+        reference = randomStrings[randomNumber];
+        refString.setText(reference);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +73,15 @@ public class MyActivity extends Activity {
         submitButton = (Button)findViewById(R.id.submitButton);
         quitButton = (Button)findViewById(R.id.quitButton);
         refString = (TextView)findViewById(R.id.inputTextView);
+        setTime = (TextView)findViewById(R.id.setTimeTextView);
+
+        refString.setText("");
+        populateStrings();
 
         topScore = 20;
         compareScore = 0;
+
+
 
         quitButton.setOnClickListener(new View.OnClickListener(){
 
@@ -60,10 +99,7 @@ public class MyActivity extends Activity {
 
         showDialog(READY_DIALOG);
 
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,10 +122,12 @@ public class MyActivity extends Activity {
 
     public void onSubmitButtonClick(View view){
 
-        String input = inputTextBox.getText().toString();
-        String reference = refString.getText().toString();//"The quick brown fox jumps over the lazy dog";//
+        setRefString();
 
-        if(input.equals(reference)){
+        String input = inputTextBox.getText().toString();
+        String referencenew = refString.getText().toString();//"The quick brown fox jumps over the lazy dog";//
+
+        if(input.equals(referencenew)){
 
             endTime = System.currentTimeMillis();
             timeTaken = (endTime - startTime) / 1000;
@@ -120,7 +158,10 @@ public class MyActivity extends Activity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     startTime = System.currentTimeMillis();
+                    inputTextBox.setText("");
+                    setRefString();
                     dialog.cancel();
+
                 }
             });
             return builder.create();
@@ -129,6 +170,8 @@ public class MyActivity extends Activity {
             endTime = System.currentTimeMillis();
             timeTaken = (endTime - startTime) / 1000;
             compareScore = timeTaken;
+            newTimeSet = String.valueOf(timeTaken);
+            setTime.setText(newTimeSet);
 
             AlertDialog.Builder builderCorrect = new AlertDialog.Builder(this);
 
@@ -147,7 +190,9 @@ public class MyActivity extends Activity {
 
                     startTime = System.currentTimeMillis();
                     inputTextBox.setText("");
+                    setRefString();
                     dialog.cancel();
+
                 }
             });
 
