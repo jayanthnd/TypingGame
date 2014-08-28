@@ -15,11 +15,13 @@
     <string name="incorrectString">Incorrect, try again!</string>
     <string name="setTime">0.0</string>
     <string name="title_activity_login_page">LoginPage</string>
-
     <string name="welcome">Welcome to the Typing Game!</string>
     <string name="login_name">Login ID</string>
-
     <string name="username">Username</string>
+    <string name="title_activity_menu">MenuActivity</string>
 
+    <string name="choose_option">Please choose any of the following:</string>
+    <string name="play_game">Play the Typing Game!</string>
+    <string name="top_score">View Top Scores</string>
 
 </resources>

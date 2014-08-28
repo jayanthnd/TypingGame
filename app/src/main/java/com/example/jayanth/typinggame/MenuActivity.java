@@ -7,56 +7,54 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 
-public class LoginPage extends Activity {
+public class MenuActivity extends Activity {
 
-    EditText loginEditText;
-    TextView welcomeTextView;
-    Button submitButtonLoginPage;
-    Button quitButtonLoginPage;
-
+    TextView optionsTextView;
+    Button playButton;
+    Button quitButtonOptions;
+    Button topScoreButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_page);
+        setContentView(R.layout.activity_menu);
 
-        loginEditText = (EditText)findViewById(R.id.loginEditText);
-        welcomeTextView = (TextView)findViewById(R.id.loginTextView);
-        submitButtonLoginPage = (Button)findViewById(R.id.loginSubmitButton);
-        quitButtonLoginPage = (Button)findViewById(R.id.loginQuitButton);
+        optionsTextView = (TextView)findViewById(R.id.optionsTextView);
+        playButton = (Button)findViewById(R.id.playButton);
+        quitButtonOptions = (Button)findViewById(R.id.quitButtonOptionsPage);
+        topScoreButton = (Button)findViewById(R.id.topScoreButton);
 
-        quitButtonLoginPage.setOnClickListener(new View.OnClickListener() {
+        playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onQuitButtonClick(v);//finish();
-            }
-        });
-
-        submitButtonLoginPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(LoginPage.this, MenuActivity.class);
+                Intent intent = new Intent(MenuActivity.this, MyActivity.class);
                 startActivity(intent);
-
             }
         });
 
+        quitButtonOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        topScoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
-    public void onQuitButtonClick(View view){
-
-        finish();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.login_page, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -72,5 +70,3 @@ public class LoginPage extends Activity {
         return super.onOptionsItemSelected(item);
     }
 }
-
-
