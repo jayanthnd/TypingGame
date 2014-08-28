@@ -37,7 +37,7 @@ public class MyActivity extends Activity {
     public  String loginUsername = null;
     int randomNumber;
 
-    private String [] randomStrings = new String[6];
+    public static String [] randomStrings = new String[6];
     private static final int CORRECT_DIALOG = 2;
     private static final int INCORRECT_DIALOG = 3;
 
