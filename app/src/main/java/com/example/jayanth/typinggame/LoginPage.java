@@ -3,6 +3,7 @@ package com.example.jayanth.typinggame;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,10 +14,14 @@ import android.widget.TextView;
 
 public class LoginPage extends Activity {
 
+    public static final String TAG_LOGINVIEW = "LoginPageActivity";
+
     EditText loginEditText;
     TextView welcomeTextView;
     Button submitButtonLoginPage;
     Button quitButtonLoginPage;
+
+    public static String login_username;
 
 
     @Override
@@ -40,11 +45,17 @@ public class LoginPage extends Activity {
             @Override
             public void onClick(View v) {
 
+                login_username = loginEditText.getText().toString();
                 Intent intent = new Intent(LoginPage.this, MenuActivity.class);
+                Intent intent1 = new Intent(LoginPage.this, MyActivity.class);
+                intent1.putExtra("username_login", login_username);
+                Log.v(TAG_LOGINVIEW, "Username = "+ login_username);
+
                 startActivity(intent);
 
             }
         });
+
 
     }
 

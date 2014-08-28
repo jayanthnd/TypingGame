@@ -3,18 +3,17 @@ package com.example.jayanth.typinggame;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import java.util.Random;
-import android.util.Log;
 
 public class MyActivity extends Activity {
 
@@ -33,8 +32,9 @@ public class MyActivity extends Activity {
     double timeTaken;
     double topScore;
     double compareScore;
-    String newTimeSet;
-    String reference;
+    String newTimeSet = null;
+    String reference = null;
+    public  String loginUsername = null;
     int randomNumber;
 
     private String [] randomStrings = new String[6];
@@ -46,18 +46,18 @@ public class MyActivity extends Activity {
     void populateStrings(){
 
         randomStrings[0] = "The quick brown fox jumps over the lazy dog";
-        randomStrings[1] = "I have no option but to delete this text";
+        randomStrings[1] = "This game is hurting my brain";
         randomStrings[2] = "The weirdest cookie in the world crumbles too quick";
-        randomStrings[3] = "The shit is way too serious to get real, you know?";
+        randomStrings[3] = "Pack my box with five dozens of liquor jars";
         randomStrings[4] = "On this date, in this place, the world will change forever";
-        randomStrings[5] = "Hi";
+        randomStrings[5] = "The five boxing wizards jump quickly";
 
     }
 
     int getRandomNumber(){
 
 
-        randomNumber = randomGenerator.nextInt(5);
+        randomNumber = randomGenerator.nextInt(6);
         //randomNumber -= 1;
         Log.v(TAG, "index= " + randomNumber);
 
@@ -98,7 +98,7 @@ public class MyActivity extends Activity {
         topScore = 20;
         compareScore = 0;
 
-        setRefString();
+        //setRefString();
 
         quitButton.setOnClickListener(new View.OnClickListener(){
 
@@ -113,6 +113,18 @@ public class MyActivity extends Activity {
                 onSubmitButtonClick(v);
             }
         });
+
+
+        //Intent newIntent = getIntent();
+        //loginUsername = newIntent.getStringExtra("username_login");
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            loginUsername = bundle.getString("username_login");
+        } else {
+            loginUsername = LoginPage.login_username;
+        }
+
+        Log.v(TAG, "USERNAME = " + loginUsername);
 
         showDialog(READY_DIALOG);
 
@@ -180,7 +192,7 @@ public class MyActivity extends Activity {
                 public void onClick(DialogInterface dialog, int which) {
                     startTime = System.currentTimeMillis();
                     inputTextBox.setText("");
-                    //setRefString();
+                    setRefString();
                     dialog.cancel();
 
                 }
@@ -198,11 +210,11 @@ public class MyActivity extends Activity {
 
             if(compareScore < topScore) {
 
-                builderCorrect.setMessage("Congratulations!!! We have a new high score of " + timeTaken + " seconds! Click Yes to play again");
+                builderCorrect.setMessage("Congratulations " + loginUsername + "!!! We have a new high score of " + timeTaken + " seconds! Click Yes to play again");
                 topScore = compareScore;
             } else {
 
-                builderCorrect.setMessage("That's Right! " + "You took " + timeTaken + " seconds! Click Yes to play again");
+                builderCorrect.setMessage("That's Right " + loginUsername + "! You took " + timeTaken + " seconds! Click Yes to play again");
             }
 
             builderCorrect.setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
@@ -211,7 +223,7 @@ public class MyActivity extends Activity {
 
                     startTime = System.currentTimeMillis();
                     inputTextBox.setText("");
-                    //setRefString();
+                    setRefString();
                     dialog.cancel();
 
                 }
@@ -237,6 +249,7 @@ public class MyActivity extends Activity {
                 public void onClick(DialogInterface dialog, int which) {
                     startTime = System.currentTimeMillis();
                     inputTextBox.setText("");
+                    setRefString();
                     dialog.cancel();
                 }
             });
