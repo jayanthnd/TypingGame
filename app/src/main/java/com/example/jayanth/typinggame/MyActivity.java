@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +39,8 @@ public class MyActivity extends Activity {
     int randomNumber;
 
     public static String [] randomStrings = new String[6];
+    public static double [] topScores = new double[6];
+    public static String [] topScoresString = new String[6];
     private static final int CORRECT_DIALOG = 2;
     private static final int INCORRECT_DIALOG = 3;
 
@@ -63,6 +66,12 @@ public class MyActivity extends Activity {
 
 
         return randomNumber;
+    }
+
+    private void sendSMS(String phonenumber, String message){
+
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phonenumber, null, message, null, null);
     }
 
     void setRefString(){
@@ -96,6 +105,10 @@ public class MyActivity extends Activity {
         populateStrings();
 
         topScore = 20;
+        for(int i=0; i<6 ; i++){
+
+            topScores[i] = 20;
+        }
         compareScore = 0;
 
         //setRefString();
@@ -163,7 +176,7 @@ public class MyActivity extends Activity {
 
             removeDialog(CORRECT_DIALOG);
 
-            setRefString();
+            //setRefString();
             showDialog(CORRECT_DIALOG);
             //Toast.makeText(this, "That's Right! You took " + timeTaken + " seconds", Toast.LENGTH_LONG).show();
 
@@ -178,6 +191,10 @@ public class MyActivity extends Activity {
 
     public void onQuitButtonClick(View view){
 
+        for (int i = 0; i < 6 ; i++){
+            topScoresString[i] = String.valueOf(topScores[i]);
+
+        }
         finish();
     }
 
@@ -208,12 +225,18 @@ public class MyActivity extends Activity {
 
             AlertDialog.Builder builderCorrect = new AlertDialog.Builder(this);
 
-            if(compareScore < topScore) {
+            if(compareScore < topScores[randomNumber]) {
 
+                Log.v(TAG, "randomNumberIF = " + randomNumber);
                 builderCorrect.setMessage("Congratulations " + loginUsername + "!!! We have a new high score of " + timeTaken + " seconds! Click Yes to play again");
-                topScore = compareScore;
+                topScores[randomNumber] = compareScore;
+
+                //sendSMS("4087977787", "Hi");
+                //topScore = compareScore;
+
             } else {
 
+                Log.v(TAG, "randomNumber = " + randomNumber);
                 builderCorrect.setMessage("That's Right " + loginUsername + "! You took " + timeTaken + " seconds! Click Yes to play again");
             }
 
