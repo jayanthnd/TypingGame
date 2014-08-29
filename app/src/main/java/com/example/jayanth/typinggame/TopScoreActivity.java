@@ -16,12 +16,26 @@ public class TopScoreActivity extends Activity {
     ListView listView;
     public String [] topScoresArray = new String[6];
     public String [] outputString = new String[6];
+
+    public String [] topScoreNameList = new String[6];
     //String outputStringTemp;
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+        outState.putStringArray("top_score_list", outputString);
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_score);
+
+        if (savedInstanceState != null) {
+            outputString = savedInstanceState.getStringArray("top_score_list");
+        }
+
         //ArrayList<String> outputString = new ArrayList<String>();
 
         //String topscores = "";
@@ -36,11 +50,19 @@ public class TopScoreActivity extends Activity {
             Log.v(TAG_TOPSCORE, "TopscoreString = " + MyActivity.topScoresString[i]);
         }
 
+        for (int i =0; i<6; i++){
+
+            topScoreNameList[i] = MyActivity.login_username_list[i];
+            Log.v(TAG_TOPSCORE, "Top Users = " + topScoreNameList[i]);
+        }
+
         for (int i=0; i<6; i++){
 
-            outputString[i] = MyActivity.randomStrings[i] + "\n" + MyActivity.topScoresString[i] + " sec";
+            outputString[i] = MyActivity.randomStrings[i] + "\n" + topScoreNameList[i] + "\n" + MyActivity.topScoresString[i] + " sec";
             //outputString.add(outputStringTemp);
         }
+
+
         //for (int i=0; i<6; i++){
 
             //topScoresArray = String.valueOf(MyActivity.topScores);

@@ -41,6 +41,7 @@ public class MyActivity extends Activity {
     public static String [] randomStrings = new String[6];
     public static double [] topScores = new double[6];
     public static String [] topScoresString = new String[6];
+    public static String [] login_username_list = new String[6];
     private static final int CORRECT_DIALOG = 2;
     private static final int INCORRECT_DIALOG = 3;
 
@@ -89,9 +90,28 @@ public class MyActivity extends Activity {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+        outState.putStringArray("top_score", topScoresString);
+        outState.putStringArray("login_usernames", login_username_list);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+
+       // for (int i=0; i<6 ; i++){
+
+
+        ///}
+        if (savedInstanceState != null){
+            topScoresString = savedInstanceState.getStringArray("top_score");
+            login_username_list = savedInstanceState.getStringArray("login_usernames");
+        }
+        Log.v(TAG, "Reopened names = " + login_username_list);
+        Log.v(TAG, "Reopened scores = " + topScoresString);
 
         inputTextBox = (EditText)findViewById(R.id.inputEditText);
         submitButton = (Button)findViewById(R.id.submitButton);
@@ -110,6 +130,11 @@ public class MyActivity extends Activity {
             topScores[i] = 20;
         }
         compareScore = 0;
+
+        for(int i =0 ;i <6; i++){
+
+            login_username_list[i] = "Default";
+        }
 
         //setRefString();
 
@@ -230,6 +255,7 @@ public class MyActivity extends Activity {
                 Log.v(TAG, "randomNumberIF = " + randomNumber);
                 builderCorrect.setMessage("Congratulations " + loginUsername + "!!! We have a new high score of " + timeTaken + " seconds! Click Yes to play again");
                 topScores[randomNumber] = compareScore;
+                login_username_list[randomNumber] = LoginPage.login_username;
 
                 //sendSMS("4087977787", "Hi");
                 //topScore = compareScore;
