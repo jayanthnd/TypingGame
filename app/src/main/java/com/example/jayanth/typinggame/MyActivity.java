@@ -60,7 +60,6 @@ public class MyActivity extends Activity {
 
     int getRandomNumber(){
 
-
         randomNumber = randomGenerator.nextInt(6);
         //randomNumber -= 1;
         Log.v(TAG, "index= " + randomNumber);
