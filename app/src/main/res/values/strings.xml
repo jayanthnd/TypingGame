@@ -4,19 +4,25 @@
     <string name="app_name">TypingGame</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
     <string name="inputString">The quick brown fox jumps over the lazy dog</string>
     <string name="submit">Submit</string>
     <string name="quit">Quit</string>
     <string name="inputText">Enter Text Here</string>
-
     <string name="dialog_ready">Are You Ready?</string>
     <string name="Yes">Yes</string>
     <string name="ok">Ok</string>
-
     <string name="correctString">Thats Right</string>
     <string name="incorrectString">Incorrect, try again!</string>
-
     <string name="setTime">0.0</string>
+    <string name="title_activity_login_page">LoginPage</string>
+    <string name="welcome">Welcome to the Typing Game!</string>
+    <string name="login_name">Login ID</string>
+    <string name="username">Username</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="choose_option">Please choose any of the following:</string>
+    <string name="play_game">Play the Typing Game!</string>
+    <string name="top_score">View Top Scores</string>
+    <string name="title_activity_top_score">TopScoreActivity</string>
+    <string name="top_score_text">Here are the top scores:</string>
 
 </resources>
